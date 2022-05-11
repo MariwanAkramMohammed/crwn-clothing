@@ -4,10 +4,11 @@ import { Routes, Route } from "react-router-dom";
 import ShopPage from "./pages/shop/shopPage.component";
 import Header from "./Components/header/header.component";
 import { auth, db } from "./firebase/firebase";
-import { InserdataToDatabase } from "./firebase/firebase";
+import { createUserAcount } from "./firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import SignInAndSignUpPage from "./pages/sign-in-sign-up/sign-in-and-sign-up-page.component";
 import "./App.css";
+import { onSnapshot } from "firebase/firestore";
 
 class App extends React.Component {
   constructor() {
@@ -18,11 +19,26 @@ class App extends React.Component {
   }
   discription = null;
   componentDidMount() {
-    this.discription = onAuthStateChanged(auth, async (user) => {
-      InserdataToDatabase(user);
-
-      // this.discription = this.setState({ current_User: user });
-      // console.log(user);
+    this.discription = onAuthStateChanged(auth, async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserAcount(userAuth);
+        onSnapshot(userRef, (snapObj) => {
+          this.setState(
+            {
+              current_User: {
+                id: snapObj.id,
+                ...snapObj.data(),
+              },
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+        });
+      }
+      else{
+        this.setState({current_User:userAuth})
+      }
     });
   }
   componentWillUnmount() {
@@ -57,7 +73,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header currentUser={this.state.discription} />
+        <Header currentUser={this.state.current_User} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />

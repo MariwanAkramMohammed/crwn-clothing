@@ -34,7 +34,6 @@ class SignIn extends React.Component {
             value={this.state.email}
             required
           />
-
           <FormInput
             type="password"
             name="password"

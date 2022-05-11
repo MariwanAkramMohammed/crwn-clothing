@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {
   getFirestore,
-  collection,
   doc,
   getDoc,
   setDoc,
@@ -23,9 +22,12 @@ const Config = {
 const App = initializeApp(Config);
 const Provider = new GoogleAuthProvider();
 export const auth = getAuth();
+const HandelSign = () => {
+  signInWithPopup(auth, Provider);
+};
 export const db = getFirestore(App);
 // console.log(`this is your error`);
-export const InserdataToDatabase = async (userAuth, additionData) => {
+export const createUserAcount = async (userAuth, additionData) => {
   if (!userAuth) return;
   const userRef = doc(db, "users", `${userAuth.uid}`);
   const SnapShot = await getDoc(userRef);
@@ -46,8 +48,6 @@ export const InserdataToDatabase = async (userAuth, additionData) => {
   return userRef;
 };
 
-const HandelSign = () => {
-  signInWithPopup(auth, Provider);
-};
+
 
 export default HandelSign;
