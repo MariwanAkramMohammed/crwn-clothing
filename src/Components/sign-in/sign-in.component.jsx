@@ -3,6 +3,8 @@ import "./sign-in.style.scss";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../costum-button/custom-button.component";
 import HandelSign from "../../firebase/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
@@ -11,9 +13,17 @@ class SignIn extends React.Component {
       password: "",
     };
   }
-  handelSubmit = (event) => {
+  handelSubmit =async (event) => {
     event.preventDefault();
-    this.setState({ email: "", password: "" });
+    const {email,password}=this.state;
+try{
+await signInWithEmailAndPassword(auth,email,password);
+  this.setState({ email: "", password: "" });
+}catch(error){
+  console.log(error)
+}
+   
+
   };
   handelChange = (event) => {
     const { value, name } = event.target;
