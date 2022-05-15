@@ -25,6 +25,7 @@ class SignUp extends React.Component {
   handelSubmit = async (event) => {
 
     event.preventDefault();
+    // THEY already updated with handelchage
     const { displayName, email, password, confirmPassword } = this.state;
 
       if (password !== confirmPassword){
@@ -37,7 +38,7 @@ class SignUp extends React.Component {
         email,
         password
       );
-      console.log(user);
+
       await createUserAcount(user, { displayName });
       this.setState({
         displayName: "",
