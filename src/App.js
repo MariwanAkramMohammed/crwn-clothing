@@ -11,7 +11,7 @@ import Header from "./Components/header/header.component";
 import { auth } from "./firebase/firebase";
 import { createUserAcount } from "./firebase/firebase";
 import SignInAndSignUpPage from "./pages/sign-in-sign-up/sign-in-and-sign-up-page.component";
-import { SetcurrentUser } from "./redux/reducer/user.action";
+import { SetcurrentUser } from "./redux/reducer/user/user.action";
 
 class App extends React.Component {
   // every component has its props entire object
@@ -65,11 +65,12 @@ class App extends React.Component {
     );
   }
 }
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
 });
 const mapDispatchToProps = (dispatch) => ({
   Setcurrent: (user) => dispatch(SetcurrentUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+// connect paramiters would be a property or propery and value of App props obj 
