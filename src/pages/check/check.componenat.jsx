@@ -7,6 +7,7 @@ import {
   selectTotalPrice,
 } from "../../redux/reducer/cart/cart.selector";
 import { createStructuredSelector } from "reselect";
+import StripeCheckoutButton from "../Stripe-Checkout/Stripe_Checkou.component";
 
 const ChechPage = ({ totalPrice, cartItems }) => (
   <div className="checkout-page">
@@ -31,6 +32,12 @@ const ChechPage = ({ totalPrice, cartItems }) => (
       <CheckoutItem key={cartItem.id} cartItem={cartItem} />
     ))}
     <div className="total">${totalPrice}</div>
+    <div className="default-cart">
+      to get default accessed use this cart address
+      <br />
+      4242 4242 4242 4242 EXP:12/34 CVV: 123
+    </div>
+    <StripeCheckoutButton price={totalPrice} />
   </div>
 );
 // ceateStructuredSelector will automaticly gives state to our selectors

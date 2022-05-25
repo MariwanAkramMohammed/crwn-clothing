@@ -14,7 +14,7 @@ const CheckoutItem = ({ cartItem, cleareItema, AddItem, RemoveItem }) => {
         <img src={imageUrl} alt="item" />
       </div>
       <span className="name">{name}</span>
-      <span className="price">{price}</span>
+      
       <span className="quantity">
         <div className="arrow" onClick={() => RemoveItem(cartItem)}>
           &#10094;
@@ -24,6 +24,7 @@ const CheckoutItem = ({ cartItem, cleareItema, AddItem, RemoveItem }) => {
           &#10095;
         </div>
       </span>
+      <span className="price">{price}</span>
       <div className="remove-button " onClick={() => cleareItema(cartItem)}>
         &#10008;
       </div>
